@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Excuse Generator</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 50% 0%, #1b0f33 0%, #050410 60%, #000 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #f5f3ff;
+    padding: 24px;
+  }
+  .card {
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+  }
+  h1 {
+    font-size: clamp(28px, 6vw, 40px);
+    margin: 0 0 8px;
+    background: linear-gradient(90deg, #a855f7, #22d3ee);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  p.sub { color: #9ca3af; margin: 0 0 28px; font-size: 15px; }
+  .excuse-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(168,85,247,0.35);
+    border-radius: 16px;
+    padding: 28px 22px;
+    min-height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    line-height: 1.5;
+    margin-bottom: 22px;
+    transition: transform 0.15s ease;
+  }
+  .excuse-box.pop { transform: scale(1.03); }
+  button {
+    background: linear-gradient(90deg, #a855f7, #6366f1);
+    border: none;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  button:active { transform: scale(0.97); }
+  .count { margin-top: 14px; color: #6b7280; font-size: 13px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>AI Excuse Generator</h1>
+    <p class="sub">When the demo breaks, blame something else.</p>
+    <div class="excuse-box" id="excuse">Click the button for your excuse.</div>
+    <button id="go">Give me an excuse</button>
+    <div class="count" id="count">0 excuses generated</div>
+  </div>
+  <script>
+    var excuses = [
+      "It's not a bug, the model is just improvising.",
+      "The model was trained before this feature existed.",
+      "That's not an error, that's an emergent behavior.",
+      "It worked in the demo. The demo is the product now.",
+      "Someone must have fine-tuned it on a Monday.",
+      "The context window ran out of patience.",
+      "It's technically correct in at least one universe.",
+      "The temperature was set too high and so was I.",
+      "That's a feature request wearing a stack trace.",
+      "The GPU got distracted by a shinier tensor.",
+      "It passed every test except the one you just ran.",
+      "The prompt was perfect, reality was the problem.",
+      "That's cache, not a bug. Give it a refresh and some grace.",
+      "The model hallucinated, briefly, and so did I.",
+      "It's not broken, it's just method acting."
+    ];
+    var n = 0;
+    var box = document.getElementById("excuse");
+    var count = document.getElementById("count");
+    document.getElementById("go").addEventListener("click", function () {
+      var pick = excuses[Math.floor(Math.random() * excuses.length)];
+      box.textContent = pick;
+      box.classList.add("pop");
+      setTimeout(function () { box.classList.remove("pop"); }, 150);
+      n += 1;
+      count.textContent = n + (n === 1 ? " excuse generated" : " excuses generated");
+    });
+  </script>
+</body>
+</html>
